@@ -35,14 +35,11 @@ def get_firefox_configuration():
     
     return options
 
-
-
 # Set OpenAI configuration
 def set_openai_config():
     openai.organization = os.getenv("OPENAI_ORGANIZATION")
     openai.api_key = os.getenv("OPENAI_API_KEY")
     check_model_availability()
-
 
 # Check if the desired model is available
 def check_model_availability():
@@ -168,7 +165,6 @@ def process_documents():
 
     return all_results
 
-
 # Main function
 def main():
     url = input('Enter the URL of the document: ')
@@ -190,6 +186,7 @@ def main():
     finally:
         driver.quit()
 
+# Flask API function
 def process_url(url):
     # You may want to return some meaningful results to the Flask API
     result_data = {}

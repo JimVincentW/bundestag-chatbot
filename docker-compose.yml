@@ -2,8 +2,8 @@ version: '3'
 
 services:
   app:
-    image: bt-reviewer:latest
-    container_name: bt-reviewer
+    image: bundestag-chatbot:latest
+    container_name: bundestag-chatbot
     build: .
     stdin_open: true
     tty: true

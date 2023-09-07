@@ -1,10 +1,18 @@
-This project is a first version to use large language models (LLMs) for assisting in the review of parliamentary documents.
+This project is a second version to use large language models (LLMs) for assisting in the review of parliamentary documents.
 
-As this is an early stage of the project, the scope is limited to the review of parliamentary processes ("Vorgänge") and their most important Documents ("wichtige Drucksachen") in the German Bundestag.
+This is an variant project "bt-reviewer". Here the main focus of presenting documents of the german parliamentary processes is by creating dynamically injecting knowledge into Chatbots and using them to assist in the review process.
 
-Since I have no Database to work on, I use the dip.bundestag.de website to scrape for the data (Additions using the DIP API are highly welcome). Links can be put in the console when running the script.
+The retrieval of information is done by either:
+1. direct instructions for automated information retrieval
+2. by using a chatbot which autonomously retrieves information from the database
 
-This project works with langchain to set up prompt templates, a catalogue of questions and an automated review process.
+
+
+This project works with langchain to set up prompt templates, a catalogue of questions and isntructions as well as a automated review process.
+
+Scope for v1:
+- Setting up one Pipeline for each process
+
 
 ! Important ! 
 The project makes use of OpenAIs GPT-4 Model. If you do not have acess to this model, use the GPT-3.5 models instead. Change the line of the main script to do so.
@@ -14,7 +22,7 @@ To see which models your orgaisation is allowed to use, run the oai_models.py sc
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/JimVincentW/bt-reviewer.git
+git clone https://github.com/JimVincentW/bundestag-chatbor.git
 ```
 
 ### 2. Install the required packages:
@@ -35,13 +43,6 @@ export OPENAI_API_KEY="<key>"
 python main.py
 ```
 
-Enter link of dip.bundestag.de process ("Vorgang")
-e.g.:
-```bash
-https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
-```
-
-
 ### With Docker:
 To enter the OpenAI API key, export it as an environment variable in your terminal or set it in the .env file in the root directory of the project.
 
@@ -52,24 +53,17 @@ export OPENAI_API_KEY="<key>"
 ```bash
 docker-compose build
 docker-compose up -d
-docker exec -it bt-reviewer /bin/sh  
+docker exec -it bundestag-chatbot /bin/sh  
 ```
 
 Then, inside the container, run the script:
 ```bash
 python main.py
 ```
-Enter link of dip.bundestag.de process ("Vorgang")
-e.g.:
-```bash
-https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
-```
-
 
 This way, the OpenAI API key will be set as an environment variable in the Docker container, and your Python script can use it to make requests to the OpenAI API.
 
 
-Result in console and results.txt:
 
 ###Contributing
 
