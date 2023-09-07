@@ -1,0 +1,3 @@
+Process:
+Read outline of document (bold and list items)
+
