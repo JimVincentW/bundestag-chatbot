@@ -15,11 +15,11 @@ drucksachen_folder = 'Drucksachen'
 document_files = [f for f in os.listdir(drucksachen_folder) if f.endswith('.pdf')]
 
 handler = StdOutCallbackHandler()
-llm = ChatOpenAI(temperature=0, model='gpt-4-0314', streaming=True)
+llm = ChatOpenAI(temperature=0, model='gpt-4-0613', streaming=True)
 
 template = ChatPromptTemplate.from_messages([
     ("system", "Du bist juristischer Referent des Bundestages."),
-    ("human", "Bitte beantworte diesen Fragenkatalog zu dem angehängten Dokument in angemessener Knappheit. Um die Fragen zu beantworten arbeite bitte in Stichpunkten.?"),
+    ("human", "Bitte beantworte diesen <Fragenkatalog zu dem angehängten Dokument in angemessener Knappheit. Um die Fragen zu beantworten arbeite bitte in Stichpunkten.?"),
     ("ai", "Alles klar was sind die Fragen?"),
     ("human", "Die Fragen: {questions}. \n\n, Sei bitte so konkret wie möglich."),
     ("ai", "Okay, was ist das Dokument?"),

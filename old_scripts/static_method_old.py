@@ -26,7 +26,7 @@ CONFIG = {
 
 class FirefoxConfig:
     @staticmethod
-    def get_firefox_configuration():
+    def get_firefox_configuration()
         options = Options()
         options.add_argument("-headless")
         return options

@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-import api_main as main  # import your refactored main script
+import old_scripts.api_main as main  # import your refactored main script
 import logging
 
 app = Flask(__name__)

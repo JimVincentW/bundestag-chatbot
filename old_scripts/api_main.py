@@ -273,7 +273,7 @@ def process_documents():
                                 ]
                             }
                         }
-                        Konvertieren Sie den folgenden Text in ein solches strukturiertes JSON-Format.
+                        Konveartieren Sie den folgenden Text in ein solches strukturiertes JSON-Format.
                         """                        },
                         {
                         'role': 'user',
