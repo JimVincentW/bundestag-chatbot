@@ -1,0 +1,43 @@
+A leagalative Document of the Bundestags has a few key parameters
+
+
+Tool Preprocessing: 
+Text Headline & Bold Statement extraction
+
+Tools developed:
+OpenBookMemory: a rolling document that various instances of models talk to. 
+Structurally a top-level summarisation + a list of topics + a list of keywords + a list of summaries of the important sections of the document.
+
+
+Model A 
+Purpose: Summarize, suggest Topics, extract Keywords
+Input: Text Headline & Bold Statement
+Output: Keywords, Topics, Summary
+Value Add: Pointing to the important sections of the Document, Starting OpenBookMemory
+
+Model B
+Purpose: Fine-read important sections of the document
+Input: Text paragraphs + Relevant Headline/ Section + OpenBookMemory
+Output: Summarized
+Sections, Cross-references, Important Notes
+Value Add: Provides a deeper analysis of significant portions of the document and aids in building a comprehensive OpenBookMemory.
+
+Model C
+Purpose: Contextualize and relate document content to existing knowledge
+Input: Keywords, Topics from Model A + Summarized Sections from Model B + Existing OpenBookMemory data
+Output: Contextual Notes, Comparative Analysis, and Potential Implications
+Value Add: It doesn't just present the information, but connects it with pre-existing data, offering a broader perspective and making the document's content more relatable and actionable.
+
+Model D
+Purpose: QA and Error Correction
+Input: All outputs from Models A, B, and C + OpenBookMemory
+Output: Corrected and refined Keywords, Topics, Summaries, Notes, and Analysis
+Value Add: Ensures the reliability and accuracy of the final information. Addresses potential biases or errors in the initial models, making the document analysis robust and trustworthy.
+
+Model E
+Purpose: Presentation and Visualization
+Input: Refined data from Model D
+Output: Graphical representations, Infographics, Interactive Dashboards, and a final OpenBookMemory document
+Value Add: Transforms raw and textual data into visually appealing and easily digestible formats. Makes the document's insights more accessible to a wider audience and facilitates quicker comprehension.
+
+This systematic approach of breaking down the legislative document analysis ensures that not only is the content thoroughly understood and summarized, but it is also contextualized, checked for accuracy, and presented in a manner that meets the needs of varied audiences. By having separate models dedicated to specific tasks, it optimizes the accuracy and efficiency of the entire process. The OpenBookMemory serves as a dynamic record that not only captures the essence of the current document but also evolves and grows with each new document that is processed.
