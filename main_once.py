@@ -51,12 +51,14 @@ class LegislativeDocumentProcessor:
     
     messages = [
         ("system", f"Du bist {instructions['role']}"),
-        ("human", f"""Du arbeitest in einem Teil und deine Rolle ist {instructions['team_role']}").
+        ("human", f"""Du arbeitest in einem Teil und deine Rolle ist {instructions['team_role']}.
         Der name des aktuellen Dokuments ist {self.document["title"]}.
         Du bist außerdem dafür verantwortlich den ersten Eintrag für das "OpenBookMemory" zu schreiben. 
         Aufgrund dieser Arbeitsvorlage werden deine Teammitglieder die Arbeit fortsetzen. 
-         """
+         """),
         ("ai", "Alles klar, was steht in dem Dokument?"),
+        ("human", "Das Dokument: {document}")
+    ]
 
 
     def process_document(self, content):
