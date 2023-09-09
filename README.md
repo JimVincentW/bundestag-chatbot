@@ -1,20 +1,25 @@
+
+🚧 Under construction 🚧s
+
 This project is a second version to use large language models (LLMs) for assisting in the review of parliamentary documents.
 
-This is an variant project "bt-reviewer". Here the main focus of presenting documents of the german parliamentary processes is by creating dynamically injecting knowledge into Chatbots and using them to assist in the review process.
+This is an variant project "bt-reviewer". Here the main focus of presenting documents of the german parliamentary processes is by dynamically injecting knowledge into LLM Chains with the goal of finally producing well informed Chatbots.
 
 The retrieval of information is done by either:
 1. direct instructions for automated information retrieval
+
 2. by using a chatbot which autonomously retrieves information from the database
 
+So far only the first option is under development. 
+The choice of database type(s) is not yet decided.
 
+Solutions involing modern Vector-Databases are likely, although hybrid approaches are also possible.
 
 This project works with langchain to set up prompt templates, a catalogue of questions and isntructions as well as a automated review process.
 
 Scope for v1:
 - Setting up one Pipeline for each process
 
-
-🚧 Under construction 🚧s
 
 # Model Usage
 The project makes use of OpenAIs GPT-4 Model. If you do not have acess to this model, use the GPT-3.5 models instead. Change the line of the main script to do so.
