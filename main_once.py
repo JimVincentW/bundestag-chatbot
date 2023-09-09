@@ -138,6 +138,8 @@ sample_document = {
     ],
     "content": "..."
 }
+
 processor = LegislativeDocumentProcessor(sample_document)
 summary = processor.process_document(sample_document["content"])
 print(summary)
+

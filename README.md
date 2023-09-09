@@ -14,7 +14,9 @@ Scope for v1:
 - Setting up one Pipeline for each process
 
 
-! Important ! 
+🚧 Under construction 🚧s
+
+# Model Usage
 The project makes use of OpenAIs GPT-4 Model. If you do not have acess to this model, use the GPT-3.5 models instead. Change the line of the main script to do so.
 To see which models your orgaisation is allowed to use, run the oai_models.py script.
 
