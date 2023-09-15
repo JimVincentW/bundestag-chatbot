@@ -106,35 +106,35 @@ document_questions = {
 
 
 
-    def JournalistLeiter(self, content, OpenBookMemory):
-        instructions = {
-            "role": "journalist", #optionds: referent, journalist, 
-            "document_type": "Pleanrsprotokolle",
-            "team_role" : "teamleiter",
-            "action": "berichten",
-            "input": ["Titel", "Struturzeilen", "Keywords", "Text"],
-            "output": ["Keywords", "Topics", "Summary", "Important Sections", "OpenBookMemory"],
-            "special_instruction": ["CreateOpenBookMemory", "Structurise"],
-            "memory" : OpenBookMemory
-        }
+def JournalistLeiter(self, content, OpenBookMemory):
+    instructions = {
+        "role": "journalist", #optionds: referent, journalist, 
+        "document_type": "Pleanrsprotokolle",
+        "team_role" : "teamleiter",
+        "action": "berichten",
+        "input": ["Titel", "Struturzeilen", "Keywords", "Text"],
+        "output": ["Keywords", "Topics", "Summary", "Important Sections", "OpenBookMemory"],
+        "special_instruction": ["CreateOpenBookMemory", "Structurise"],
+        "memory" : OpenBookMemory
+    }
 
-        model = ChatOpenAI(
-            temperature=0,
-            openai_api_key=os.getenv("OPENAI_API_KEY"),
-            model="gpt-3.5-turbo-0613"
-        )
+    model = ChatOpenAI(
+        temperature=0,
+        openai_api_key=os.getenv("OPENAI_API_KEY"),
+        model="gpt-3.5-turbo-0613"
+    )
 
-        prompt = f"""
-        Du bist {instructions["role"]} und sollst über {instructions["document_type"]}s 
-        Dokumente des Bundestags {instructions["action"]}.
-        Dafür hast du folgendes Dokument zur Verfügung:
-        {instructions["input"][3]}: {content}.
-        
+    prompt = f"""
+    Du bist {instructions["role"]} und sollst über {instructions["document_type"]}s 
+    Dokumente des Bundestags {instructions["action"]}.
+    Dafür hast du folgendes Dokument zur Verfügung:
+    {instructions["input"][3]}: {content}.
+    
 
-        """
-        
-        responste = model(prompt)
-        return reposnse, OpenBookMemory
+    """
+    
+    responste = model(prompt)
+    return response, OpenBookMemory
 
 
 processor = TeamLeiter(sample_document)
@@ -309,3 +309,4 @@ sample_document = {
 processor = LegislativeDocumentProcessor(sample_document)
 summary = processor.ModelA(sample_document["content"])
 print(summary)
+Ä

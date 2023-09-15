@@ -3,14 +3,6 @@ from langchain.chat_models import ChatOpenAI
 import fitz
 
 
-instruction_templates = {
-    "summary": "Summarize the content and provide the main points.",
-    "analysis": "Analyze the content critically, looking for rhetorical devices, tone, and any potential bias.",
-    "context": "How does this content relate to existing knowledge or legislation?",
-    "QA": "Are there any inconsistencies or inaccuracies in the summary and analysis?",
-    "presentation": "Present the summarized and analyzed data in an easily digestible format."
-}
-
 document_questions = {
     "Vorgang": [
         "Was ist der Hauptzweck dieses Vorgangs?",
@@ -80,14 +72,38 @@ document_questions = {
         ]
 }
 
+roles_templates = {
+    "role": ["referent", "journalist"],
+    "team_role": "teamleiter",
+    "action": "zusammenfassen",
+    "input": ["Titel", "Struturzeilen", "Keywords", "Text"],
+    "output": ["Keywords", "Topics", "Summary", "Important Sections", "OpenBookMemory"],
+    "special_instruction": ["CreateOpenBookMemory", "Structurise"]
+
+}
+
+referent_leiter = {
+    "role": "referent",
+    "team_role": "teamleiter",
+    "action": "zusammenfassen",
+    "input": ["Titel", "Struturzeilen", "Keywords", "Text"],
+    "output": ["Keywords", "Topics", "Summary", "Important Sections", "OpenBookMemory"],
+    "special_instruction": ["CreateOpenBookMemory", "Structurise"]
+}
+
+
+
+
+
 class LegislativeDocumentProcessor:
     def __init__(self, document, api_key=None):
+
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.document = document
 
     def _build_prompt(self, content):
         instructions = {
-            "role": "referent",
+            "role": ["referent", "journalist"],
             "team_role": "teamleiter",
             "action": "zusammenfassen",
             "input": ["Titel", "Struturzeilen", "Keywords", "Text"],
@@ -95,17 +111,22 @@ class LegislativeDocumentProcessor:
             "special_instruction": ["CreateOpenBookMemory", "Structurise"]
         }
 
-        return f"""
+        prompt = f"""
+        Du bisst {instructions['role'][1]} des Bundestags.
+        Du arbeitest in einem Teil und deine Rolle ist {instructions['team_role']}.
+        
+        Der name des aktuellen Dokuments ist {self.document["title"]}.
         
         Dafür hast du folgendes Dokument zur Verfügung:
         {instructions["input"][3]}: {content}.
-        Du arbeitest als Teil eines Teams.
+         eines Teams.
         Deine Rolle ist {instructions["team_role"]}.
+        
         Bitte fasse auch für das dynamische OpenBookMemory zusammen.
         """
-    
-    messages = [
-        ("system", f"Du bist {instructions['role']}"),
+        return prompt
+
+        ("system", f"Du bist {instructions['role'][1]} des Bundestags."),
         ("human", f"""Du arbeitest in einem Teil und deine Rolle ist {instructions['team_role']}.
         Der name des aktuellen Dokuments ist {self.document["title"]}.
         Du bist außerdem dafür verantwortlich den ersten Eintrag für das "OpenBookMemory" zu schreiben. 
@@ -126,7 +147,7 @@ class LegislativeDocumentProcessor:
         response = model.generate(prompt)
         return response
 
-# Test
+
 sample_document = {
     "title": "Gesetz zur Änderung des Lobbyregister- und des Lobbyistenverhaltensgesetzes",
     "type": "Vorgang",
@@ -138,8 +159,106 @@ sample_document = {
     ],
     "content": "..."
 }
+document = sample_document["content"] + " " + sample_document["title"] + " " + sample_document["important_files"][0] + " " + sample_document["important_files"][1] 
+
+
 
 processor = LegislativeDocumentProcessor(sample_document)
 summary = processor.process_document(sample_document["content"])
 print(summary)
 
+
+import os
+from langchain.chat_models import ChatOpenAI
+import fitz
+
+class LegislativeDocumentProcessor:
+
+    def __init__(self, document):
+        self.api_key = os.getenv("OPENAI_API_KEY")
+        if not self.api_key:
+            raise ValueError("Please set the OPENAI_API_KEY environment variable.")
+        self.document = document
+        self.model = ChatOpenAI(
+            temperature=0,
+            openai_api_key=self.api_key,
+            model="gpt-3.5-turbo-0613"
+        )
+        self.openbookmemory = []
+
+    def ModelA(self, content):
+        # ... Your Model A Code Here ...
+        # After processing:
+        return summary, self.openbookmemory
+
+    def ModelB(self, content):
+        # Deep analysis of the document and builds OpenBookMemory
+        # ...
+        return deep_summary, cross_references, notes, self.openbookmemory
+
+    def ModelC(self, content):
+        # Contextual analysis and relating content to existing knowledge
+        # ...
+        return contextual_notes, comparative_analysis, potential_implications, self.openbookmemory
+
+    def ModelD(self, content):
+        # Quality assurance and error correction
+        # ...
+        return refined_keywords, refined_summary, refined_notes, self.openbookmemory
+
+    def ModelE(self, content):
+        # Presentation and visualization
+        # ...
+        return graphical_data, infographics, interactive_dashboards, self.openbookmemory
+
+    def process_document(self):
+        content = self.document['content']
+
+        # Model A processing
+        summary_a, self.openbookmemory = self.ModelA(content)
+
+        # Model B processing
+        deep_summary, cross_references, notes, self.openbookmemory = self.ModelB(content)
+
+        # Model C processing
+        contextual_notes, comparative_analysis, potential_implications, self.openbookmemory = self.ModelC(content)
+
+        # Model D processing
+        refined_keywords, refined_summary, refined_notes, self.openbookmemory = self.ModelD(content)
+
+        # Model E processing
+        graphical_data, infographics, interactive_dashboards, self.openbookmemory = self.ModelE(content)
+
+        return {
+            "summary": summary_a,
+            "deep_summary": deep_summary,
+            "contextual_notes": contextual_notes,
+            "refined_summary": refined_summary,
+            "graphical_data": graphical_data,
+            "openbookmemory": self.openbookmemory
+        }
+
+
+
+sample_document = {
+    "type": "Vorgang",
+    "id": 300955,
+    "intiative": ["gruene", "spd", "fdp"],
+    "important_files": [
+        "BT-Drucksache 20/7356",
+        "1. Beratung BT-Plenarprotokoll 20/113, S. 13947C-13959B"
+    ],
+    "content": "Just some random text for now."
+}
+
+processor = LegislativeDocumentProcessor(sample_document)
+result = processor.process_document()
+
+print(result)
+
+
+
+
+
+
+# https://dip.bundestag.de/vorgang/bezahlbare-und-klimafreundliche-mobilit%C3%A4t-f%C3%B6rdern-klimaneutrale-kraftstoffe-im-verkehr/296949?term=296949&f.wahlperiode=20&rows=25&pos=1
